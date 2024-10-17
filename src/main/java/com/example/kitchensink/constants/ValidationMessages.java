@@ -12,6 +12,4 @@ public class ValidationMessages {
     public static final String NAME_PATTERN = "^[a-zA-Z\\s]+$"; // Solo letras y espacios
     public static final String EMAIL_PATTERN = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$"; // Formato de email
     public static final String PHONE_PATTERN = "^\\+?[0-9. ()-]{7,}$"; // Formato de número de teléfono
-
-
 }
