@@ -1,29 +1,16 @@
-import java.io.Serializable;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
+package com.example.kitchensink.entities;
+import lombok.Builder;
+import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import lombok.Data;  // Importa Lombok
-
-@SuppressWarnings("serial")
-@Data  // Genera automáticamente getters, setters, toString, equals y hashCode
-@Entity
-
-@Table(name = "members", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+@Document(collection = "members")
+@Data
+@Builder
 public class Member {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(name = "name")
+    private String id; // Agrega un campo id para el identificador único
     private String name;
-    @Column(name = "email")
     private String email;
-    @Column(name = "phone_number")
     private String phoneNumber;
-    public Member() {}
 }

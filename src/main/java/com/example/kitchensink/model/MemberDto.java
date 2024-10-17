@@ -1,10 +1,10 @@
 package com.example.kitchensink.model;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
-
-public class Member {
+public class MemberDto {
 
     private String name;
 
