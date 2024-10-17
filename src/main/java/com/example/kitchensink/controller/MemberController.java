@@ -1,6 +1,7 @@
 package com.example.kitchensink.controller;
 
 
+import com.example.kitchensink.entities.Member;
 import com.example.kitchensink.exceptions.InvalidMemberDataException;
 import com.example.kitchensink.exceptions.MemberAlreadyExistsException;
 import com.example.kitchensink.model.MemberDto;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 
 @CrossOrigin(origins = "*")
@@ -23,16 +26,21 @@ public class MemberController {
     }
 
     @PostMapping
-    public ResponseEntity<?> addMember(@RequestBody MemberDto member){
+    public ResponseEntity<?> addMember(@Valid  @RequestBody Member member){
         try {
-            memberService.createMember(member);
-            return new ResponseEntity<>(member, HttpStatus.CREATED); // Return 201 for creation
-        } catch (MemberAlreadyExistsException e) {
-            return new ResponseEntity<>("Member already exists.", HttpStatus.CONFLICT);
+            if(memberService.EmailExist(member)){
+                throw new MemberAlreadyExistsException("Member already exists with this email: " + member.getEmail());
+            }
+            else{
+                memberService.createMember(member);
+                return new ResponseEntity<>(member, HttpStatus.CREATED); // Return 201 for creation
+            }
         } catch (InvalidMemberDataException e) {
             return new ResponseEntity<>("Invalid member data.", HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
-            return new ResponseEntity<>("An unexpected error occurred.", HttpStatus.INTERNAL_SERVER_ERROR);
+            String errorMessage = "An unexpected error occurred: " + e.getMessage();
+            return new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
+
         }
     }
 
