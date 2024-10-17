@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 
 @CrossOrigin(origins = "*")
-@RequestMapping("/member")
+@RestController
+@RequestMapping("/api/members")
 public class MemberController {
     @Autowired
     private MemberService memberService;
