@@ -35,9 +35,7 @@ public class MemberController {
                 memberService.createMember(member);
                 return new ResponseEntity<>(member, HttpStatus.CREATED); // Return 201 for creation
             }
-        } catch (InvalidMemberDataException e) {
-            return new ResponseEntity<>("Invalid member data.", HttpStatus.BAD_REQUEST);
-        } catch (Exception e) {
+        }catch (Exception e) {
             String errorMessage = "An unexpected error occurred: " + e.getMessage();
             return new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
 
