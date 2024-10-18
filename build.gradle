@@ -40,6 +40,8 @@ dependencies {
 	testImplementation 'org.mockito:mockito-core:3.11.2'
 	implementation 'org.hibernate.validator:hibernate-validator:6.2.0.Final' // Para validación
 	implementation 'javax.validation:validation-api:2.0.1.Final' // API de validación
+	testImplementation 'org.assertj:assertj-core:3.21.0' // Check for the latest version
+
 }
 
 tasks.named('test') {

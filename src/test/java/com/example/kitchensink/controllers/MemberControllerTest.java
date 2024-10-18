@@ -1,20 +1,15 @@
-package com.example.kitchensink.controller;
+package com.example.kitchensink.controllers;
 
 import com.example.kitchensink.constants.ValidationMessages;
 import com.example.kitchensink.entities.Member;
-import com.example.kitchensink.exceptions.MemberAlreadyExistsException;
-import com.example.kitchensink.service.MemberService;
+import com.example.kitchensink.services.MemberService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 

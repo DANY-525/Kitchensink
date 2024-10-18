@@ -1,4 +1,4 @@
-package com.example.kitchensink.repository;
+package com.example.kitchensink.repositorys;
 import com.example.kitchensink.entities.Member;
 import org.springframework.data.mongodb.repository.MongoRepository;
 

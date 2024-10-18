@@ -1,8 +1,8 @@
-package com.example.kitchensink.controller;
+package com.example.kitchensink.controllers;
 import com.example.kitchensink.constants.ValidationMessages;
 import com.example.kitchensink.entities.Member;
 import com.example.kitchensink.exceptions.MemberAlreadyExistsException;
-import com.example.kitchensink.service.MemberService;
+import com.example.kitchensink.services.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,8 +1,8 @@
-package com.example.kitchensink.service;
+package com.example.kitchensink.services;
 
 import com.example.kitchensink.constants.ValidationMessages;
 import com.example.kitchensink.entities.Member;
-import com.example.kitchensink.repository.MemberRepository;
+import com.example.kitchensink.repositorys.MemberRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
