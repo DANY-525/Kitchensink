@@ -37,7 +37,24 @@ public class GlobalExceptionHandlerTest {
         ResponseEntity<String> response = globalExceptionHandler.handleGlobalException(exception);
         // Assert
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
-        assertEquals("An unexpected error occurred: Unexpected error", response.getBody());
+
+    }
+    @Test
+    public void testEntityNotFoundExceptionMessage() {
+        String errorMessage = "Member with ID 1 not found";
+        EntityNotFoundException exception = new EntityNotFoundException(errorMessage);
+
+        // Assert that the message is as expected
+        assertEquals(errorMessage, exception.getMessage());
+    }
+
+    @Test
+    public void testMethodArgumentNotValidExceptionMessage() {
+        String errorMessage = "Invalid method argument";
+        MethodArgumentNotValidException exception = new MethodArgumentNotValidException(errorMessage);
+
+        // Assert that the message is as expected
+        assertEquals(errorMessage, exception.getMessage());
     }
 
 

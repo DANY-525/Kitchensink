@@ -8,6 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/members")
@@ -32,5 +35,18 @@ public class MemberController {
             return new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @GetMapping
+    public ResponseEntity<List<?>> getAllMembers() {
+        try {
+           List<Member> members = memberService.findAll();
+            return ResponseEntity.ok(members);
+        }catch  (Exception e) {
+            List<String> validateMessage = new ArrayList<>();
+            String errorMessage = ValidationMessages.UNEXPECTED_ERROR + e.getMessage();
+            validateMessage.add(errorMessage);
+            return new ResponseEntity<>(validateMessage, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
 }

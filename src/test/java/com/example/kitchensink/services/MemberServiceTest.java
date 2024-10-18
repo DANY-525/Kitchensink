@@ -2,17 +2,24 @@ package com.example.kitchensink.services;
 
 import com.example.kitchensink.constants.ValidationMessages;
 import com.example.kitchensink.entities.Member;
+import com.example.kitchensink.exceptions.EntityNotFoundException;
 import com.example.kitchensink.repositorys.MemberRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import javax.validation.ValidationException;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 
 public class MemberServiceTest {
 
@@ -28,6 +35,23 @@ public class MemberServiceTest {
     public void setUp() {
         MockitoAnnotations.openMocks(this);
         member = new Member("1", "John Doe", "john.doe@example.com", "+1234567890");
+    }
+    @Test
+    public void testFindAll() {
+        Member member1 = new Member();
+        member1.setName("John Doe");
+        member1.setEmail("john@example.com");
+        member1.setPhoneNumber("1234567890");
+        Member member2 = new Member();
+        member2.setName("Jane Doe");
+        member2.setEmail("jane@example.com");
+        member2.setPhoneNumber("0987654321");
+        List<Member> members = Arrays.asList(member1, member2);
+        when(memberRepository.findAll()).thenReturn(members);
+        List<Member> result = memberService.findAll();
+        assertEquals(2, result.size());
+        assertEquals("John Doe", result.get(0).getName());
+        assertEquals("Jane Doe", result.get(1).getName());
     }
 
     @Test
@@ -81,4 +105,5 @@ public class MemberServiceTest {
         assertFalse(memberService.EmailExist(member));
         verify(memberRepository, times(1)).findByEmail(member.getEmail());
     }
+
 }

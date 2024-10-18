@@ -1,11 +1,13 @@
 package com.example.kitchensink.services;
 import com.example.kitchensink.constants.ValidationMessages;
 import com.example.kitchensink.entities.Member;
+import com.example.kitchensink.exceptions.EntityNotFoundException;
 import com.example.kitchensink.repositorys.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.validation.ValidationException;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 @Service
@@ -20,11 +22,30 @@ public class MemberService {
         validateMember(memberDto);
         return memberRepository.save(memberDto);
     }
+    @Transactional
+    public void deleteMember(String memberId) {
+        if (!memberRepository.existsById(memberId)) {
+            throw new EntityNotFoundException("Member not found");
+        }
+        memberRepository.deleteById(memberId);
+    }
+
+    @Transactional
+    public Member editMember(String memberId, Member memberDto) {
+        if (!memberRepository.existsById(memberId)) {
+            throw new EntityNotFoundException("Member not found");
+        }
+        validateMember(memberDto);
+        memberDto.setId(memberId);  // Assuming Member has an 'id' field
+        return memberRepository.save(memberDto);
+    }
     private void validateMember(Member member) {
         validateName(member.getName());
         validateEmail(member.getEmail());
         validatePhoneNumber(member.getPhoneNumber());
     }
+
+
     private void validateName(String name) {
         if (name == null || name.trim().isEmpty()) {
             throw new ValidationException(ValidationMessages.NAME_REQUIRED);
@@ -54,6 +75,9 @@ public class MemberService {
         if (!matcher.matches()) {
             throw new ValidationException(ValidationMessages.PHONE_NUMBER_INVALID);
         }
+    }
+    public List<Member> findAll() {
+        return memberRepository.findAll();
     }
     public boolean EmailExist(Member memberDto) {
         return memberRepository.findByEmail(memberDto.getEmail()).isPresent();
