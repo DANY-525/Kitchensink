@@ -25,7 +25,6 @@ public class MemberService {
         validateEmail(member.getEmail());
         validatePhoneNumber(member.getPhoneNumber());
     }
-
     private void validateName(String name) {
         if (name == null || name.trim().isEmpty()) {
             throw new ValidationException(ValidationMessages.NAME_REQUIRED);
@@ -36,7 +35,6 @@ public class MemberService {
             throw new ValidationException(ValidationMessages.NAME_INVALID);
         }
     }
-
     private void validateEmail(String email) {
         if (email == null || email.trim().isEmpty()) {
             throw new ValidationException(ValidationMessages.EMAIL_REQUIRED);
@@ -47,7 +45,6 @@ public class MemberService {
             throw new ValidationException(ValidationMessages.EMAIL_INVALID);
         }
     }
-
     private void validatePhoneNumber(String phoneNumber) {
         if (phoneNumber == null || phoneNumber.trim().isEmpty()) {
             throw new ValidationException(ValidationMessages.PHONE_NUMBER_REQUIRED);

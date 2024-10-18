@@ -32,10 +32,7 @@ public class MemberControllerTest {
                 .email("john.doe@example.com")
                 .phoneNumber("+1234567890")
                 .build();
- }
-
-
-
+    }
     @Test
     public void testAddMember_Success() {
         when(memberService.EmailExist(member)).thenReturn(false);
@@ -45,9 +42,6 @@ public class MemberControllerTest {
         assertEquals(member, response.getBody());
         verify(memberService).createMember(member);
     }
-
-
-
     @Test
     public void testAddMember_UnexpectedError() {
         when(memberService.EmailExist(member)).thenThrow(new RuntimeException("Database error"));
